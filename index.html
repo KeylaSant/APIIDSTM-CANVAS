@@ -67,6 +67,14 @@
 
             })
 
+            canvas.addEventListener("mousemove", (e) =>{
+
+                ctx.beginPath();
+                ctx.arc(e.layerX, e.layerY, 10, 0, 2*Math.PI);
+                ctx.fill();
+                
+            })
+
             /*ctx.fillStyle = "#7d88e5";
             ctx.fillRect(0, 0, 50, 50);
             ctx.fillStyle = "#cd0009";
