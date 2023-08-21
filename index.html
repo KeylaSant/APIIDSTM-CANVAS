@@ -5,19 +5,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myCanvas</title>
-
+    <style>
+        canvas{
+            background-color: white;
+        }
+        body{
+            background-color: black;
+        }
+           
+    </style>
 </head>
 
 <body>
     <img id="my_image" src="my_image.png" style="display: none;" />
     <canvas id="myCanvas" width="500" height="500"></canvas>
+
     <script>
         window.onload = () => {
+            
             const canvas = document.getElementById("myCanvas");
             const ctx = canvas.getContext("2d");
+            ctx.fillStyle = "rgba(13,242,23,0.5)";
 
+            canvas.addEventListener("click", (e) =>{
+                console.log("Hola");
+                console.log(event);
 
-            ctx.fillStyle = "#7d88e5";
+                ctx.beginPath();
+                ctx.arc(e.layerX, e.layerY, 50, 0, 2*Math.PI);
+                ctx.fill();
+                ctx.stroke();
+            })
+
+            /*ctx.fillStyle = "#7d88e5";
             ctx.fillRect(0, 0, 50, 50);
             ctx.fillStyle = "#cd0009";
             ctx.fillRect(30, 30, 50, 50);
@@ -83,7 +103,9 @@
 
 
             var img = document.getElementById("my_image");
-            ctx.drawImage(img, 340, 70, 80, 80);
+            ctx.drawImage(img, 340, 70, 80, 80);*/
+
+
         }
 
 
