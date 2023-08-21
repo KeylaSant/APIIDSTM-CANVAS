@@ -1,23 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>myCanvas</title>
+
 </head>
+
 <body>
-    <canvas id="myCanvas" width="400" height="400"></canvas>
+    <img id="my_image" src="my_image.png" style="display: none;" />
+    <canvas id="myCanvas" width="500" height="500"></canvas>
     <script>
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
+        window.onload = () => {
+            const canvas = document.getElementById("myCanvas");
+            const ctx = canvas.getContext("2d");
 
-ctx.fillStyle = "#7d88e5";
-ctx.fillRect(0, 0, 100, 100);
-ctx.fillStyle = "#cd0009";
-ctx.fillRect(80, 80, 100, 100);
-ctx.fillStyle = "#ff96ffBF" ;
-ctx.fillRect(160, 160, 100, 100);
 
-</script>
+            ctx.fillStyle = "#7d88e5";
+            ctx.fillRect(0, 0, 50, 50);
+            ctx.fillStyle = "#cd0009";
+            ctx.fillRect(30, 30, 50, 50);
+            ctx.fillStyle = "#ff96ffBF";
+            ctx.fillRect(60, 60, 50, 50);
+
+            ctx.fillStyle = "rgba(0,0,200,0.5)";
+            ctx.strokeStyle = "blue";
+
+            ctx.beginPath();
+            ctx.moveTo(185, 10);
+            ctx.lineTo(185, 65);
+            ctx.lineTo(125, 65);
+            ctx.fill();
+            ctx.closePath();
+
+            ctx.beginPath();
+
+            ctx.moveTo(222, 65);
+            ctx.lineTo(272, 125);
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "purple";
+            ctx.arc(170, 110, 20, 0, 2 * Math.PI);
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "blue";
+            ctx.arc(215, 110, 20, 0, 2 * Math.PI);
+            ctx.fill();
+            ctx.stroke();
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.fillStyle = "black";
+            ctx.font = "30px Arial";
+            ctx.fillText("Hola mundo", 250, 50);
+            ctx.closePath();
+
+            ctx.beginPath();
+            ctx.strokeStyle = "green";
+            ctx.strokeText("Hola mundo", 252, 52);
+            ctx.closePath();
+
+            var grd = ctx.createLinearGradient(140, 170, 200, 100);
+            grd.addColorStop(0, "#7D33FF");
+            grd.addColorStop(0.5, "#33BBFF");
+            grd.addColorStop(1, "#FF33C4");
+
+            ctx.fillStyle = grd;
+            ctx.fillRect(140, 170, 200, 100);
+
+            var grd2 = ctx.createRadialGradient(240, 320, 5, 255, 340, 150);
+            grd2.addColorStop(0, "#FFD133");
+            grd2.addColorStop(0.5, "#61FF33");
+            grd2.addColorStop(1, "#FF336E");
+
+            ctx.fillStyle = grd2;
+            ctx.fillRect(140, 270, 200, 100);
+
+
+            var img = document.getElementById("my_image");
+            ctx.drawImage(img, 340, 70, 80, 80);
+        }
+
+
+    </script>
 </body>
+
 </html>
