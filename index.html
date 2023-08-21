@@ -27,13 +27,22 @@
             const ctx = canvas.getContext("2d");
             ctx.fillStyle = "rgba(13,242,23,0.5)";
 
-                canvas.addEventListener("click", (e) => {
-
+            canvas.addEventListener("click", (e) => {
                     console.log (e);
-                    ctx.beginPath();
+                   ctx.beginPath();
+
+                    if (figura){
+
                     ctx.arc(e.layerX, e.layerY, 50, 0, 2*Math.PI);
-                    ctx.fill();
-                    ctx.stroke();
+                    
+                }else{
+                    ctx.fillRect (e.layerX-50, e.layerY-50, 100, 100);
+                    ctx.strokeRect(e.layerX-50, e.layerY-50, 100, 100);
+                }
+
+                ctx.fill();
+                ctx.stroke(); 
+              
                  
             })
 
@@ -49,6 +58,14 @@
                 return 'rgba(' + o(r()*s) + ',' + o(r()*s) + ',' + o(r()*s) + ',' + r().toFixed(1) + ')';
 
             }
+
+            let figura = true;
+            canvas.addEventListener("mouseout", (e) =>{
+                console.log("mouseout");
+                 figura = !figura;
+
+
+            })
 
             /*ctx.fillStyle = "#7d88e5";
             ctx.fillRect(0, 0, 50, 50);
