@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <img id="image" src="imageHae.png" style="display: none;" />
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        //Cabello
+        ctx.beginPath();
+        ctx.arc(400, 150, 95, 0, 2 * Math.PI);
+        ctx.fillStyle = "#0C0C0C";
+        ctx.fill();
+
+        //Largo
+        ctx.fillStyle = "0C0C0C";
+        ctx.fillRect(305, 145, 190, 200);
+
+        //Cabeza 
+        ctx.beginPath();
+        ctx.arc(400, 150, 80, 0, 2 * Math.PI);
+        ctx.fillStyle = "#D9B59C";
+        ctx.fill();
+
+        //Ojos
+        //Iquierdo
+        ctx.beginPath();
+        ctx.arc(365, 145, 15, 0, 2 * Math.PI);
+        ctx.fillStyle = "#0C0C0C";
+        ctx.fill();
+
+        //Derecho
+        ctx.beginPath();
+        ctx.arc(435, 145, 15, 0, 2 * Math.PI);
+        ctx.fillStyle = "#0C0C0C";
+        ctx.fill();
+
+        //Sonrisa
+        ctx.beginPath();
+        ctx.arc(400, 190, 15, 1, Math.PI);
+        ctx.stroke();
+
+        //Copete
+        ctx.beginPath();
+        ctx.arc(400, 150, 95, 10, 2 * Math.PI);
+        ctx.fillStyle = "#0C0C0C";
+        ctx.fill();
+
+        // Camisa centro
+        ctx.fillStyle = "#80FF40";
+        ctx.fillRect(300, 245, 200, 250);
+
+        //Imagen camisa
+        var img = document.getElementById("image");
+        img.onload=()=>{
+            
+            ctx.drawImage(img, 300, 280, 200, 200);
+        }
+
+        // Camisa mangas 
+        // Izquierda
+        ctx.fillStyle = "#80FF40";
+        ctx.beginPath();
+        ctx.roundRect(230, 245, 70, 70, [40, 0, 0, 0]);
+        ctx.fill();
+
+        //Derecha
+        ctx.fillStyle = "#80FF40";
+        ctx.beginPath();
+        ctx.roundRect(500, 245, 70, 70, [0, 40, 0, 0]);
+        ctx.fill();
+
+        //Brazos
+        //Izquierdo
+        ctx.fillStyle = "#D9B59C";
+        ctx.beginPath();
+        ctx.roundRect(230, 315, 70, 230, [0, 0, 40, 40]);
+        ctx.fill();
+
+        //Derecho
+        ctx.fillStyle = "#D9B59C";
+        ctx.beginPath();
+        ctx.roundRect(500, 315, 70, 230, [0, 0, 40, 40]);
+        ctx.fill();
+
+        //Pantalon
+        //Centro
+        ctx.fillStyle = "#596E84";
+        ctx.fillRect(300, 495, 200, 100);
+
+        //Izquierdo
+        ctx.fillStyle = "#596E84";
+        ctx.fillRect(300, 560, 90, 200);
+
+        //Derecho
+        ctx.fillStyle = "#596E84";
+        ctx.fillRect(410, 560, 90, 200);
+
+        //Tenis
+        //Izquierdo
+        ctx.fillStyle = "#2C2C2C";
+        ctx.fillRect(280, 760, 110, 40);
+
+        //Derecho
+        ctx.fillStyle = "#2C2C2C";
+        ctx.fillRect(410, 760, 110, 40);
+
+        // Cuello
+        ctx.fillStyle = "#D9B59C";
+        ctx.beginPath();
+        ctx.roundRect(370, 225, 60, 60, [0, 0, 40, 40]);
+        ctx.fill();
+
+    </script>
+
+</body>
+
+</html>
