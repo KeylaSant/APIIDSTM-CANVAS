@@ -25,30 +25,57 @@
         const ctx = canvas.getContext("2d");
 
         var x = 225, y = 255;
+        var dir = 0;
 
         document.addEventListener("keydown", (e) => {
-
             console.log(e.keyCode);
+
+          
 
             switch (e.keyCode) {
                 case 87:
-                    y -= 10;
+                    dir = e.keyCode;
                     break;
                 case 83:
-                    y += 10;
+                    dir=e.keyCode;
                     break;
                 case 68:
-                    x += 10;
+                    dir= e.keyCode;
                     break;
                 case 65:
-                    x -= 10;
+                    dir = e.keyCode;
                     break;
 
             }
-            
-            repaint();
+            ctx.fillStyle= random_rgba();
+            //update();
 
         })
+
+        function update(){
+            
+            switch (dir) {
+                case 87:
+                    y -= 10;
+                    if(y<-50){y=550;}
+                    break;
+                case 83:
+                    y += 10;
+                    if(y>550){y=50;}
+                    break;
+                case 68:
+                    x += 10;
+                    if(x>550){x=50;}
+                    break;
+                case 65:
+                    x -= 10;
+                    if(x<-50){x=550;}
+                    break;
+
+            }
+            repaint();
+            window.requestAnimationFrame(update);
+        }
 
         function repaint() {
 
@@ -59,6 +86,18 @@
             ctx.fillRect(x, y, 50, 50);
             ctx.strokeRect(x, y, 50, 50);
         }
+
+        window.requestAnimationFrame = (function(){
+            return window.requestAnimationFrame ||
+            window.webkitRequestAnimationFrame ||
+            window.mozRequestAnimationFrame ||
+            window.msRequestAnimationFrame ||
+            function (callback){
+                window.setTimeout(callback,17);
+            };
+        }());
+
+        window.requestAnimationFrame(update);
         // ctx.fillStyle = "rgba(13,242,23,0.5)";
 
 
