@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="800" height="800"></canvas>
+    <img id="image" src="palmeras.png" style="display: none;" />
+    <img id="imagee" src="palmeras.png" style="display: none;" />
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+
+        //Fondo naranja
+        const my_gradient = ctx.createLinearGradient(0, 0, 0, 150);
+        my_gradient.addColorStop(0, "#ef548d");
+        my_gradient.addColorStop(1, "#ef7e34");
+
+        // Fill Rectangle
+        ctx.fillStyle = my_gradient;
+        ctx.fillRect(0, 0, 800, 400);
+
+        //Sol
+        ctx.beginPath();
+        ctx.fillStyle = "#efc71f";
+        ctx.arc(400, 350, 200, 0, 2 * Math.PI);
+        ctx.fill();
+        ctx.closePath();
+
+        //Fondo azul
+        const gradient2 = ctx.createLinearGradient(400, 0, 400, 700);
+        gradient2.addColorStop(0, "#1087df");
+        gradient2.addColorStop(1, "#0b0e36");
+
+        // Fill Rectangle
+        ctx.fillStyle = gradient2;
+        ctx.fillRect(0, 400, 800, 400);
+
+        //Palmeras
+        var img = document.getElementById("image");
+        img.onload = () => {
+
+
+            ctx.drawImage(img, 0, 400, 400, 400);
+
+            ctx.drawImage(img, 400, 400, 400, 400);
+
+        }
+
+    </script>
+
+</body>
+
+</html>
