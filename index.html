@@ -84,7 +84,31 @@
                 console.log("Hola")
                 t_x = Math.random()*(460);
                 t_y = Math.random()*(460);
+                speed +=5;
                 
+            }
+            if (x < w_x + 280 &&
+                x + 50 > w_x &&
+                y < w_y + 30 &&
+                y + 50 > w_y)
+             {
+
+                switch (dir)
+                 {
+                    case 87:
+                        y+= speed;
+                        break;
+                    case 83:
+                        y-= speed;
+                        break;
+                    case 68:
+                        x-= speed;
+                        break;
+                    case 65:
+                        x+= speed;
+                        break;                
+                }
+                dir=0;
             }
             repaint();
             window.requestAnimationFrame(update);
@@ -102,8 +126,8 @@
             ctx.fillStyle="black";
             ctx.fillRect(t_x, t_y, 40, 40);
 
-            // ctx.fillStyle="purple";
-            // ctx.fillRect(w_x, w_y, 280, 30);
+            ctx.fillStyle="purple";
+            ctx.fillRect(w_x, w_y, 280, 30);
         }
 
         window.requestAnimationFrame = (function(){
