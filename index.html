@@ -24,91 +24,119 @@
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
 
-        var x = 225, y = 255;
         var dir = 0;
-        var t_x=350, t_y=350;
-        var w_x=100, w_y=70;
-        var speed =10;
+        var w_x = 100, w_y = 70;
+        var speed = 10;
+        let walls = [];
+
+        class Rectangulo {
+            constructor(x, y, w, h, c) {
+                this.x = x;
+                this.y = y,
+                this.w = w;
+                this.h = h;
+                this.c = c;
+            }
+
+            paint(ctx) {
+                ctx.fillStyle = this.c;
+                ctx.fillRect(this.x, this.y, this.w, this.h);
+                ctx.strokeRect(this.x, this.y, this.w, this.h);
+            }
+
+            seTocan(target) {
+
+                if (this.x < target.x + target.w &&
+                    this.x + this.w > target.x &&
+                    this.y < target.y + target.h &&
+                    this.y + this.h > target.y) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        const player = new Rectangulo(255, 255, 50, 50, "black");
+        const target = new Rectangulo(350, 350, 40, 40, "black");
+
+
+        walls[0] = new Rectangulo(100, 70, 280, 30, "purple");
+        walls[1] = new Rectangulo(100, 420, 280, 30, "purple");
 
         document.addEventListener("keydown", (e) => {
             console.log(e.keyCode);
 
-          
+
 
             switch (e.keyCode) {
                 case 87:
                     dir = e.keyCode;
                     break;
                 case 83:
-                    dir=e.keyCode;
+                    dir = e.keyCode;
                     break;
                 case 68:
-                    dir= e.keyCode;
+                    dir = e.keyCode;
                     break;
                 case 65:
                     dir = e.keyCode;
                     break;
 
             }
-            ctx.fillStyle= random_rgba();
+            //ctx.fillStyle = random_rgba();
             //update();
 
         })
 
-        function update(){
-            
+        function update() {
+
             switch (dir) {
                 case 87:
-                    y -= 10;
-                    if(y<-50){y=550;}
+                    player.y -= speed;
+                    if (player.y < -50) { player.y = 550 }
                     break;
                 case 83:
-                    y += 10;
-                    if(y>550){y=50;}
+                    player.y += speed;
+                    if (player.y > 550) { player.y = 0 }
                     break;
                 case 68:
-                    x += 10;
-                    if(x>550){x=50;}
+                    player.x += speed;
+                    if (player.x > 550) { player.x = 0 }
                     break;
                 case 65:
-                    x -= 10;
-                    if(x<-50){x=550;}
+                    player.x -= speed;
+                    if (player.x < -50) { player.x = 550 }
                     break;
 
             }
-            if (x < t_x + 40 &&
-                x + 50 > t_x &&
-                y < t_y + 40 &&
-                y + 50 > t_y)
-             {
-                console.log("Hola")
-                t_x = Math.random()*(460);
-                t_y = Math.random()*(460);
-                speed +=5;
-                
-            }
-            if (x < w_x + 280 &&
-                x + 50 > w_x &&
-                y < w_y + 30 &&
-                y + 50 > w_y)
-             {
 
-                switch (dir)
-                 {
-                    case 87:
-                        y+= speed;
-                        break;
-                    case 83:
-                        y-= speed;
-                        break;
-                    case 68:
-                        x-= speed;
-                        break;
-                    case 65:
-                        x+= speed;
-                        break;                
+            if (player.seTocan(target)) {
+                t_x = Math.random() * (460);
+                t_y = Math.random() * (460);
+                speed += 5;
+            }
+
+            for (var i = walls.length - 1; i >= 0; i--) {
+
+
+                if (player.seTocan(walls[i])) {
+
+                    switch (dir) {
+                        case 87:
+                            player.y += speed;
+                            break;
+                        case 83:
+                            player.y -= speed;
+                            break;
+                        case 68:
+                            player.x -= speed;
+                            break;
+                        case 65:
+                            player.x += speed;
+                            break;
+                    }
+                    dir = 0;
                 }
-                dir=0;
+
             }
             repaint();
             window.requestAnimationFrame(update);
@@ -119,25 +147,25 @@
             ctx.fillStyle = "white";
             ctx.fillRect(0, 0, 500, 500);
 
-            ctx.fillStyle = random_rgba();
-            ctx.fillRect(x, y, 50, 50);
-            ctx.strokeRect(x, y, 50, 50);
-            //pintar un objeto
-            ctx.fillStyle="black";
-            ctx.fillRect(t_x, t_y, 40, 40);
+            player.c = random_rgba();
+            player.paint(ctx)
 
-            ctx.fillStyle="purple";
-            ctx.fillRect(w_x, w_y, 280, 30);
+            target.paint(ctx)
+
+            for (var i = walls.length - 1; i >= 0; i--) {
+                walls[i].paint(ctx)
+            }
+
         }
 
-        window.requestAnimationFrame = (function(){
+        window.requestAnimationFrame = (function () {
             return window.requestAnimationFrame ||
-            window.webkitRequestAnimationFrame ||
-            window.mozRequestAnimationFrame ||
-            window.msRequestAnimationFrame ||
-            function (callback){
-                window.setTimeout(callback,17);
-            };
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
         }());
 
         window.requestAnimationFrame(update);
