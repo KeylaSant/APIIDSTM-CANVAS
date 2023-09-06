@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="900" height="600"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        //Fondo
+        ctx.fillStyle = "#b2eefe";
+        ctx.fillRect(0, 0, 900, 600);
+
+        //Piso
+        ctx.fillStyle = "#ff9766";
+        ctx.fillRect(0, 500, 900, 100);
+
+        //Piso linea negra
+        ctx.fillStyle = "#000000";
+        ctx.fillRect(0, 495, 900, 5);
+
+        function pintarBloqueMarron(x, y, ancho, alto) {
+            ctx.fillStyle = "#ff8a4e";
+            ctx.fillRect(x, y, ancho, alto);
+            ctx.lineWidth = 5;
+            ctx.strokeRect(x, y, ancho, alto);
+
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(x + 10, y + 10, 5, 5);
+            ctx.fillRect(x + ancho - 15, y + alto - 15, 5, 5);
+            ctx.fillRect(x + ancho - 15, y + 10, 5, 5);
+            ctx.fillRect(x + 10, y + alto - 15, 5, 5);
+        }
+
+        pintarBloqueMarron(25, 200, 80, 80)
+        pintarBloqueMarron(750, 30, 80, 80)
+        pintarBloqueMarron(100, 50, 80, 80)
+        pintarBloqueMarron(180, 50, 80, 80)
+
+        function pintarBloquesColores(x, y, ancho, alto, color) {
+            ctx.fillStyle = "#000000";
+            ctx.beginPath();
+            ctx.roundRect(x+190, y+40,ancho -160, alto-35, [0, 10, 10, 0]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x - 5, y - 5, ancho, alto, [10, 10, 10, 10]);
+            ctx.fill();
+            ctx.fillStyle = color;
+            ctx.beginPath();
+            ctx.roundRect(x, y, ancho, alto, [10, 10, 10, 10]);
+            ctx.fill();
+
+            ctx.fillStyle = "#000000";
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + 10, 35, 35,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + ancho - 40, y + alto - 40, 35, 35,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + ancho - 40, y + 10, 35, 35,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + alto - 40, 35, 35,[100, 100, 100, 100]);
+            ctx.fill();
+
+            ctx.fillStyle = "#b3bfc0";
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + 10, 30, 30,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + ancho - 40, y + alto - 40, 30, 30,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + ancho - 40, y + 10, 30, 30,[100, 100, 100, 100]);
+            ctx.fill();
+            ctx.beginPath();
+            ctx.roundRect(x + 10, y + alto - 40, 30, 30,[100, 100, 100, 100]);
+            ctx.fill();
+
+        }
+        pintarBloquesColores(350, 190, 200, 305, "#71c2ff")
+        pintarBloquesColores(200, 290, 200, 205, "#ffc0b5")
+        pintarBloquesColores(750, 290, 200, 205, "#00dd5b")
+        
+        function cuadroVerde(x, y, ancho, alto) {
+            
+            ctx.fillStyle = "#008800";
+            ctx.fillRect(x, y, ancho, alto);
+            ctx.lineWidth = 5;
+            ctx.strokeRect(x, y, ancho, alto); 
+            
+            ctx.fillStyle = "#008800";
+            ctx.fillRect(x-5, y-55, ancho+10, alto-80);
+            ctx.lineWidth = 5;
+            ctx.strokeRect(x-5, y-55, ancho+10, alto-80);  
+
+        }
+
+        cuadroVerde(600, 355, 130, 140)
+
+    </script>
+
+</body>
+
+</html>

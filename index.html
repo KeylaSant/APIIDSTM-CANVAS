@@ -26,6 +26,9 @@
 
         var x = 225, y = 255;
         var dir = 0;
+        var t_x=350, t_y=350;
+        var w_x=100, w_y=70;
+        var speed =10;
 
         document.addEventListener("keydown", (e) => {
             console.log(e.keyCode);
@@ -73,6 +76,16 @@
                     break;
 
             }
+            if (x < t_x + 40 &&
+                x + 50 > t_x &&
+                y < t_y + 40 &&
+                y + 50 > t_y)
+             {
+                console.log("Hola")
+                t_x = Math.random()*(460);
+                t_y = Math.random()*(460);
+                
+            }
             repaint();
             window.requestAnimationFrame(update);
         }
@@ -85,6 +98,12 @@
             ctx.fillStyle = random_rgba();
             ctx.fillRect(x, y, 50, 50);
             ctx.strokeRect(x, y, 50, 50);
+            //pintar un objeto
+            ctx.fillStyle="black";
+            ctx.fillRect(t_x, t_y, 40, 40);
+
+            // ctx.fillStyle="purple";
+            // ctx.fillRect(w_x, w_y, 280, 30);
         }
 
         window.requestAnimationFrame = (function(){
