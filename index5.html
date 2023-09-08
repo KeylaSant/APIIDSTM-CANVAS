@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="440" height="330"></canvas>
+    <img id="image" src="girasol.png" style="display: none;" />
+    <img id="imagee" src="palmera.png" style="display: none;" />
+
+    <script>
+
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+
+        //Fondo
+        ctx.fillStyle = "#2000a0";
+        ctx.fillRect(0, 0, 440, 230);
+
+
+        //Piso cuadrados intercalados
+        for(let fila =1; fila <=5; fila++){
+            
+            for(let columna =0; columna <22; columna++){
+                    ctx.fillStyle = ((fila%2) ? (columna%2) : !(columna%2)) ? "#602000" : "#c06000";
+                    ctx.fillRect((columna*20),230 + (fila*20), 20, 20)
+                }
+            }
+        
+
+        //Piso
+        ctx.fillStyle = "#80e000";
+        ctx.fillRect(0, 230, 440, 10);
+        ctx.fillStyle = "#40a000";
+        ctx.fillRect(0, 240, 440, 10);
+        ctx.fillStyle = "#006000";
+        ctx.fillRect(0, 250, 440, 10);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+        ctx.fillRect(0, 260, 440, 20);
+
+        
+
+        //Circulos amarillos
+        ctx.beginPath();
+        ctx.arc(60, 200, 15, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#fdfc02";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(120, 200, 15, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#fdfc02";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        ctx.beginPath();
+        ctx.arc(180, 200, 15, 0, 2 * Math.PI);
+        ctx.strokeStyle = "#fdfc02";
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        //Palo palmera
+        ctx.fillStyle = "#804000";
+        ctx.fillRect(260, 100, 10, 130);
+
+        //Palo flor
+        ctx.fillStyle = "#40a000";
+        ctx.fillRect(390, 180, 5, 50);
+
+        //Imagen flor
+        var img = document.getElementById("image");
+        img.onload=()=>{
+            
+            ctx.drawImage(img, 370, 150, 50, 50);
+
+        }
+
+        //Hojas de palmera
+        var imge = document.getElementById("imagee");
+        imge.onload=()=>{
+            
+            ctx.drawImage(imge, 190, 25, 150, 150);
+            ctx.drawImage(imge, -80, 10, 150, 150);
+        }
+
+        
+
+
+    </script>
+
+</body>
+
+</html>
