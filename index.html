@@ -18,30 +18,45 @@
 
 <body>
     <img id="my_image" src="my_image.png" style="display: none;" />
+    <img id="bananacat" src="bananacat.png" style="display: none;" />
     <canvas id="myCanvas" width="500" height="500"></canvas>
 
     <script>
         const canvas = document.getElementById("myCanvas");
         const ctx = canvas.getContext("2d");
-
+        const banana = document.getElementById("bananacat");
         var dir = 0;
         var w_x = 100, w_y = 70;
         var speed = 10;
         let walls = [];
+        let audio = new Audio("happycat.mp3");
+        audio.preload = "auto";
+        audio.autoplay = true;
+        audio.loop = true;
+        audio.volume = 0.10;
+
 
         class Rectangulo {
-            constructor(x, y, w, h, c) {
+            constructor(x, y, w, h, c, img) {
                 this.x = x;
                 this.y = y,
                 this.w = w;
                 this.h = h;
                 this.c = c;
+
+                this.img=img;
             }
 
             paint(ctx) {
-                ctx.fillStyle = this.c;
-                ctx.fillRect(this.x, this.y, this.w, this.h);
-                ctx.strokeRect(this.x, this.y, this.w, this.h);
+                
+                if(this.img){
+                    ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+                    
+                }else{
+                    ctx.fillStyle = this.c;
+                    ctx.fillRect(this.x, this.y, this.w, this.h);
+                    ctx.strokeRect(this.x, this.y, this.w, this.h);
+                }
             }
 
             seTocan(target) {
@@ -55,7 +70,7 @@
                 return false;
             }
         }
-        const player = new Rectangulo(255, 255, 50, 50, "black");
+        const player = new Rectangulo(255, 255, 50, 50, "black", banana);
         const target = new Rectangulo(350, 350, 40, 40, "black");
 
 
@@ -167,7 +182,7 @@
 
             player.c = random_rgba();
             player.paint(ctx)
-
+            ctx.fillStyle = "black";
             ctx.font= "30px Serif"
             ctx.fillText(`Score: ${Score}`, 30,40)
             target.paint(ctx)
