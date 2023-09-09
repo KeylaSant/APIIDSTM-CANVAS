@@ -62,9 +62,10 @@
         walls[0] = new Rectangulo(100, 70, 280, 30, "purple");
         walls[1] = new Rectangulo(100, 420, 280, 30, "purple");
 
+        let Pause = false;
+
         document.addEventListener("keydown", (e) => {
             console.log(e.keyCode);
-
 
 
             switch (e.keyCode) {
@@ -79,6 +80,12 @@
                     break;
                 case 65:
                     dir = e.keyCode;
+                    break;
+                case 80:
+                    if (Pause){
+                        window.requestAnimationFrame(update);
+                    }
+                    Pause = !Pause
                     break;
 
             }
@@ -110,9 +117,11 @@
             }
 
             if (player.seTocan(target)) {
-                t_x = Math.random() * (460);
-                t_y = Math.random() * (460);
-                speed += 5;
+                target.x = Math.random() * (460);
+                target.y = Math.random() * (460);
+                // speed += 5;
+
+                Score += 10;
             }
 
             for (var i = walls.length - 1; i >= 0; i--) {
@@ -139,9 +148,18 @@
 
             }
             repaint();
-            window.requestAnimationFrame(update);
-        }
 
+            if(!Pause){
+                window.requestAnimationFrame(update);
+                return;
+            }
+            ctx.fillStyle = "rgba(0,0,0, 0.25)"
+            ctx.fillRect(0,0,500,500);
+            ctx.font= "50px arial"
+            ctx.fillStyle= "rgb(0,0,0)";
+            ctx.fillText(`PAUSE`, 160,250)
+        }
+        let Score = 0;
         function repaint() {
 
             ctx.fillStyle = "white";
@@ -150,6 +168,8 @@
             player.c = random_rgba();
             player.paint(ctx)
 
+            ctx.font= "30px Serif"
+            ctx.fillText(`Score: ${Score}`, 30,40)
             target.paint(ctx)
 
             for (var i = walls.length - 1; i >= 0; i--) {
