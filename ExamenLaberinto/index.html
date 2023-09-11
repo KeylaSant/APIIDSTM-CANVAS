@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BananaCat</title>
+
+    <style>
+        canvas {
+            background-color: #c3b5f3;
+        }
+
+        body {
+            background-color: black;
+        }
+    </style>
+
+</head>
+
+<body>
+    <img id="bananacat" src="bananacat.png" style="display: none;" />
+    <canvas id="myCanvas" width="1000" height="1000"></canvas>
+
+    <script>
+        const canvas = document.getElementById("myCanvas");
+        const ctx = canvas.getContext("2d");
+        const banana = document.getElementById("bananacat");
+        let muros = [];
+        var dir = 0;
+
+        class Rectangulo {
+            constructor(x, y, w, h, c, img) {
+                this.x = x;
+                this.y = y,
+                    this.w = w;
+                this.h = h;
+                this.c = c;
+
+                this.img = img;
+            }
+
+            paint(ctx) {
+
+                if (this.img) {
+                    ctx.drawImage(this.img, this.x, this.y, this.w, this.h)
+
+                } else {
+                    ctx.fillStyle = this.c;
+                    ctx.fillRect(this.x, this.y, this.w, this.h);
+                    ctx.strokeRect(this.x, this.y, this.w, this.h);
+                }
+            }
+            seTocan(target) {
+
+                if (this.x < target.x + target.w &&
+                    this.x + this.w > target.x &&
+                    this.y < target.y + target.h &&
+                    this.y + this.h > target.y) {
+                    return true;
+                }
+                return false;
+            }
+        }
+        const player = new Rectangulo(255, 255, 50, 50, "black", banana);
+
+        muros[0] = new Rectangulo(100, 70, 700, 10, "#85c4e7");
+        muros[1] = new Rectangulo(100, 420, 280, 30, "#85c4e7");
+
+        document.addEventListener("keydown", (e) => {
+            console.log(e.keyCode);
+
+            dir = e.keyCode;
+        })
+
+        function update() {
+
+            switch (dir) {
+                case 87:
+                    player.y -= speed;
+                    if (player.y < -50) { player.y = 550 }
+                    break;
+                case 83:
+                    player.y += speed;
+                    if (player.y > 550) { player.y = 0 }
+                    break;
+                case 68:
+                    player.x += speed;
+                    if (player.x > 550) { player.x = 0 }
+                    break;
+                case 65:
+                    player.x -= speed;
+                    if (player.x < -50) { player.x = 550 }
+                    break;
+
+            }
+            for (var i = muros.length - 1; i >= 0; i--) {
+                if (player.seTocan(muros[i])) {
+
+                    switch (dir) {
+                        case 87:
+                            player.y += speed;
+                            break;
+                        case 83:
+                            player.y -= speed;
+                            break;
+                        case 68:
+                            player.x -= speed;
+                            break;
+                        case 65:
+                            player.x += speed;
+                            break;
+                    }
+                    dir = 0;
+                }
+
+            }
+            repaint();
+
+            function repaint() {
+                player.paint(ctx)
+
+                for (var i = muros.length - 1; i >= 0; i--) {
+                    muros[i].paint(ctx)
+                }
+
+            }
+        }
+
+        window.requestAnimationFrame = (function () {
+            return window.requestAnimationFrame ||
+                window.webkitRequestAnimationFrame ||
+                window.mozRequestAnimationFrame ||
+                window.msRequestAnimationFrame ||
+                function (callback) {
+                    window.setTimeout(callback, 17);
+                };
+        }());
+
+        window.requestAnimationFrame(update);
+    </script>
+
+</body>
+
+</html>
